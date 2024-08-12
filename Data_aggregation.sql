@@ -54,3 +54,40 @@ SELECT
     LEFT(email, 3) AS email_prefix
 FROM customer
 ORDER BY last_name ASC;
+
+-- CHALLENGE 2
+
+# 1.1 The Total Number of Films That Have Been Released:
+SELECT COUNT(*) AS total_films
+FROM film;
+
+# 1.2 The Number of Films for Each Rating:
+SELECT rating, COUNT(*) AS number_of_films
+FROM film
+GROUP BY rating;
+
+# 1.3 The Number of Films for Each Rating, Sorting the Results in Descending Order of the Number of Films:
+SELECT rating, COUNT(*) AS number_of_films
+FROM film
+GROUP BY rating
+ORDER BY number_of_films DESC;
+
+# 2.1 The Mean Film Duration for Each Rating, Rounded to Two Decimal Places, and Sorted in Descending Order:
+SELECT rating, ROUND(AVG(length), 2) AS mean_duration
+FROM film
+GROUP BY rating
+ORDER BY mean_duration DESC;
+
+# 2.2 Identify Ratings with a Mean Duration of Over Two Hours (120 minutes):
+SELECT rating, ROUND(AVG(length), 2) AS mean_duration
+FROM film
+GROUP BY rating
+HAVING AVG(length) > 120
+ORDER BY mean_duration DESC;
+
+# Bonus: Determine Which Last Names Are Not Repeated in the Table Actor:
+SELECT last_name
+FROM actor
+GROUP BY last_name
+HAVING COUNT(*) = 1
+ORDER BY last_name;
